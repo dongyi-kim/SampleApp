@@ -1,5 +1,6 @@
 package cdmst.sampleapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener{ //이 Activity 객체에 클릭 리스너 객체를 등록합시다
 
-    public static final int RESULT_CODE_LOTTO_CHOICE = 1;
+    public static final int REQUEST_CODE_LOTTO_CHOICE = 1;
 
     private TextView text;
     private Button btnChoice;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         if( v == btnChoice)
         {
             Intent intent = new Intent(this, LottoChoiceActivity.class);
-            startActivityForResult(intent, RESULT_CODE_LOTTO_CHOICE);
+            startActivityForResult(intent, REQUEST_CODE_LOTTO_CHOICE);
             //
             //
 
@@ -61,4 +62,26 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        switch (requestCode){
+            case REQUEST_CODE_LOTTO_CHOICE:
+                    if(resultCode == Activity.RESULT_OK) {
+                        int[] num = data.getIntArrayExtra( LottoChoiceActivity.EXTRA_NAME_NUMBERS );
+
+
+                    }
+
+
+                break;
+
+            default:
+
+        }
+
+
+    }
 }

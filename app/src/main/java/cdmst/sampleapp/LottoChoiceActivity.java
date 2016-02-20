@@ -1,12 +1,14 @@
 package cdmst.sampleapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -18,6 +20,10 @@ public class LottoChoiceActivity extends Activity{
     private EditText[] numbers;
     private Button btnRandom;
     private Button btnOkay;
+
+    public static final String EXTRA_NAME_NUMBERS = "12342334345234234234";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +52,10 @@ public class LottoChoiceActivity extends Activity{
         btnRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkNumbers())
-                {//true
-
-                }else
-                {//false
-                    Toast.makeText(LottoChoiceActivity.this, "test", Toast.LENGTH_LONG).show();
+                if (checkNumbers()) {//true
+                    sendResult();
+                } else {//false
+                    Toast.makeText(LottoChoiceActivity.this, "Invalid Input", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -61,6 +65,22 @@ public class LottoChoiceActivity extends Activity{
         generateLottoNumbers();
     }
 
+    private void sendResult() {
+
+        int[] array = new int[6];
+        for(int i = 0 ; i < 6;  i++){
+            array[i] = Integer.parseInt( numbers[i].getEditableText().toString() );
+        }
+
+        Arrays.sort(array);
+
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_NAME_NUMBERS, array);
+
+        setResult( Activity.RESULT_OK , intent);
+
+        finish();
+    }
 
     private boolean checkNumbers()
     {
