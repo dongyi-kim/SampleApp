@@ -1,5 +1,6 @@
 package cdmst.sampleapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +10,10 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener{ //이 Activity 객체에 클릭 리스너 객체를 등록합시다
 
+    public static final int RESULT_CODE_LOTTO_CHOICE = 1;
+
     private TextView text;
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
+    private Button btnChoice;
 
 
     /**
@@ -33,15 +33,12 @@ public class MainActivity extends AppCompatActivity
         //setContentView로 불러온 Layout의 View들은 Activity에서 관리하고 있습니다
         //그러므로 findViewById()를 사용하여 액티비티로부터 그 View들의 객체를 받아올 수 있습니다
         text = (TextView)findViewById(R.id.my_textview);
-        button1 = (Button)findViewById(R.id.my_button1);
-        button2 = (Button)findViewById(R.id.my_button2);
-        button3 = (Button)findViewById(R.id.my_button3);
-        button4 = (Button)findViewById(R.id.my_button4);
+        btnChoice = (Button)findViewById(R.id.my_button1);
 
         //View들에 setOnClickListener메소드를 통해 OnClickListener 객체를 등록할 수 있습니다
         //해당 View가 Click되었을 때에 해당 OnClickListener객체의 onClick(View v)메소드가 실행됩니다
-        button1.setOnClickListener(this);
-        button2.setOnClickListener(this);
+        btnChoice.setOnClickListener(this);
+
     }
 
     /**
@@ -51,16 +48,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View v)
     {
-        if(v == button1)
+        if( v == btnChoice)
         {
-            text.setText("1 Clicked!");
-            Button b = (Button)v;
-            b.setText("click click");
-        }else if( v == button2 )
-        {
-            text.setText("2 Clicked!");
+            Intent intent = new Intent(this, LottoChoiceActivity.class);
+            startActivityForResult(intent, RESULT_CODE_LOTTO_CHOICE);
+            //
+            //
+
+            ///
         }
 
-
     }
+
+
 }
