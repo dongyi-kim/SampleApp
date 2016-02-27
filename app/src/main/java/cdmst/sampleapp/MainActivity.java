@@ -4,9 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener{ //이 Activity 객체에 클릭 리스너 객체를 등록합시다
@@ -39,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         //View들에 setOnClickListener메소드를 통해 OnClickListener 객체를 등록할 수 있습니다
         //해당 View가 Click되었을 때에 해당 OnClickListener객체의 onClick(View v)메소드가 실행됩니다
         btnChoice.setOnClickListener(this);
+
+        ((Button)findViewById(R.id.my_button2)).setOnClickListener(this);
     }
 
 
@@ -62,6 +76,8 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(intent, REQUEST_CODE_LOTTO_CHOICE);
 
 
+        }else{
+
         }
     }
 
@@ -79,11 +95,11 @@ public class MainActivity extends AppCompatActivity
 
         switch (requestCode){
             case REQUEST_CODE_LOTTO_CHOICE:
-                    if(resultCode == Activity.RESULT_OK) {
-                        int[] num = data.getIntArrayExtra( LottoChoiceActivity.EXTRA_NAME_NUMBERS );
+                if(resultCode == Activity.RESULT_OK) {
+                    int[] num = data.getIntArrayExtra( LottoChoiceActivity.EXTRA_NAME_NUMBERS );
 
 
-                    }
+                }
 
 
                 break;
